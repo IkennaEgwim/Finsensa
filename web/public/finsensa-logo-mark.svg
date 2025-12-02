@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 256 256">
+  <defs>
+    <style>
+      .bg{fill:#0B3BFF}
+      .accent{fill:#00C2FF}
+      .white{fill:#ffffff}
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="256" height="256" rx="40"></rect>
+  <rect class="accent" x="168" y="0" width="88" height="256" opacity="0.08"></rect>
+  <path class="white" d="M70 72h104a10 10 0 0 1 0 20H90v24h66a10 10 0 0 1 0 20H90v48a10 10 0 0 1-20 0V82a10 10 0 0 1 10-10z"></path>
+  <rect class="accent" x="90" y="126" width="76" height="12" rx="6"></rect>
+</svg>
