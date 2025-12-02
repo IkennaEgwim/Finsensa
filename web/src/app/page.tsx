@@ -350,37 +350,81 @@ function LeadCapture() {
     <section id="lead" className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="p-6 rounded-2xl border border-slate-200 bg-white shadow-sm">
         <h3 className="text-xl font-bold">Get your first forecast now</h3>
-        <p className="mt-1 text-slate-600 text-sm">Enter your details and we’ll send setup steps. Read‑only connections · CSV fallback.</p>
-        <form className="mt-4 grid gap-4 md:grid-cols-2" onSubmit={(e) => e.preventDefault()}>
+        <p className="mt-1 text-slate-600 text-sm">Enter your details and we’ll send setup steps. Read-only connections · CSV fallback.</p>
+
+        <form
+          action="https://formcarry.com/s/-qq8EZv-xPs"  /* <- replace with your URL */
+          method="POST"
+          className="mt-4 grid gap-4 md:grid-cols-2"
+        >
+          <input type="hidden" name="_gotcha" />
+          <input type="hidden" name="source" value="finsensa-landing" />
+
           <div className="md:col-span-2">
             <label className="block text-sm font-medium">Work email</label>
-            <input className="mt-1 w-full rounded-2xl border border-slate-300 px-3 py-2" placeholder="you@company.com" />
+            <input
+              name="email"
+              type="email"
+              required
+              className="mt-1 w-full rounded-2xl border border-slate-300 px-3 py-2"
+              placeholder="you@company.com"
+            />
           </div>
+
           <div>
             <label className="block text-sm font-medium">Role</label>
-            <select className="mt-1 w-full rounded-2xl border border-slate-300 px-3 py-2">
+            <select
+              name="role"
+              required
+              className="mt-1 w-full rounded-2xl border border-slate-300 px-3 py-2"
+            >
+              <option value="">Select…</option>
               <option>Owner / MD</option>
               <option>Finance lead</option>
               <option>Accountant / VCFO</option>
               <option>Other</option>
             </select>
           </div>
+
           <div>
             <label className="block text-sm font-medium">Company size</label>
-            <select className="mt-1 w-full rounded-2xl border border-slate-300 px-3 py-2">
+            <select
+              name="companySize"
+              required
+              className="mt-1 w-full rounded-2xl border border-slate-300 px-3 py-2"
+            >
+              <option value="">Select…</option>
               <option>1–4</option>
               <option>5–20</option>
               <option>21–50</option>
               <option>51–200</option>
             </select>
           </div>
+
           <div className="md:col-span-2 flex items-center gap-2 text-xs text-slate-500">
-            <input id="consent" type="checkbox" className="rounded border-slate-300" />
+            <input name="consent" id="consent" type="checkbox" required className="rounded border-slate-300" />
             <label htmlFor="consent">I agree to receive onboarding emails. You can unsubscribe anytime.</label>
           </div>
+
           <div className="md:col-span-2 flex gap-3">
-            <button className="px-5 py-3 rounded-2xl text-white" style={{ background: "#0B3BFF" }}>Start free trial</button>
-            <button className="px-5 py-3 rounded-2xl border border-slate-300">Book 15‑min demo</button>
+            <button
+              type="submit"
+              name="intent"
+              value="start_trial"
+              className="px-5 py-3 rounded-2xl text-white"
+              style={{ background: "#0B3BFF" }}
+            >
+              Start free trial
+            </button>
+
+            <button
+              type="submit"
+              name="intent"
+              value="book_demo"
+              className="px-5 py-3 rounded-2xl border border-slate-300"
+            >
+              Book 15-min demo
+            </button>
           </div>
         </form>
       </div>
