@@ -176,34 +176,18 @@ const Card = ({ children, className = "" }) => (
   </div>
 );
 
-const Btn = ({
-  href = "#",
-  primary,
-  children,
-  target,
-  onClick,
-  className = "",
-}: {
-  href?: string;
-  primary?: boolean;
-  children: React.ReactNode;
-  target?: "_blank" | "_self";
-  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
-  className?: string;
-}) => (
+const Btn = ({ href = "#", primary, children, target, onClick, className = "" }) => (
   <a
     href={href}
     target={target}
     onClick={onClick}
     rel={target ? "noopener noreferrer" : undefined}
-    className={[
-      "px-5 py-3 rounded-2xl transition-all duration-200 focus:outline-none",
-      "focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sky-400",
+    className={`${className} px-5 py-3 rounded-2xl transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sky-400 ${
       primary
-        ? "text-white bg-[#0B3BFF] hover:brightness-110 active:translate-y-[1px] hover:shadow-md"
-        : "border border-slate-300 hover:bg-slate-50 hover:text-[#0B3BFF] hover:border-[#0B3BFF] active:translate-y-[1px]",
-      className,
-    ].join(" ")}
+        ? "text-white hover:brightness-110 hover:shadow-md"
+        : "border border-slate-300 hover:bg-slate-50 hover:text-[#0B3BFF] hover:border-[#0B3BFF]"
+    }`}
+    style={primary ? { background: C.blue } : {}}
   >
     {children}
   </a>
@@ -308,10 +292,22 @@ function Header() {
     };
     const onClick = (e: MouseEvent) => {
       const t = e.target as Node;
-      if (prod && menuRef.current && btnRef.current && !menuRef.current.contains(t) && !btnRef.current.contains(t)) {
+      if (
+        prod &&
+        menuRef.current &&
+        btnRef.current &&
+        !menuRef.current.contains(t) &&
+        !btnRef.current.contains(t)
+      ) {
         setProd(false);
       }
-      if (res && resMenuRef.current && resBtnRef.current && !resMenuRef.current.contains(t) && !resBtnRef.current.contains(t)) {
+      if (
+        res &&
+        resMenuRef.current &&
+        resBtnRef.current &&
+        !resMenuRef.current.contains(t) &&
+        !resBtnRef.current.contains(t)
+      ) {
         setRes(false);
       }
     };
@@ -326,7 +322,9 @@ function Header() {
   useEffect(() => {
     const prev = document.body.style.overflow;
     if (open) document.body.style.overflow = "hidden";
-    const onResize = () => { if (window.innerWidth >= 768) setOpen(false); };
+    const onResize = () => {
+      if (window.innerWidth >= 768) setOpen(false);
+    };
     window.addEventListener("resize", onResize);
     return () => {
       document.body.style.overflow = prev;
@@ -341,7 +339,11 @@ function Header() {
       <Wrap>
         <div className="py-5 flex items-center justify-between">
           <a href="#" className="flex items-center gap-2">
-            <img src="/finsensa-logo-mark.svg" alt="Finsensa" className="w-8 h-8 rounded-xl" />
+            <img
+              src="/finsensa-logo-mark.svg"
+              alt="Finsensa"
+              className="w-8 h-8 rounded-xl"
+            />
             <span className="font-bold tracking-tight">Finsensa</span>
           </a>
 
@@ -358,7 +360,13 @@ function Header() {
               >
                 Product
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                  <path d="M6 9l6 6 6-6" stroke="#0f172a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="#0f172a"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
               {prod && (
@@ -369,7 +377,11 @@ function Header() {
                   className="absolute top-full left-0 mt-2 w-56 rounded-xl border border-slate-200 bg-white shadow-lg p-2 z-40"
                 >
                   {NAV_PRODUCT.map((i) => (
-                    <a key={i.href} href={i.href} className="block px-3 py-2 rounded-lg hover:bg-slate-50">
+                    <a
+                      key={i.href}
+                      href={i.href}
+                      className="block px-3 py-2 rounded-lg hover:bg-slate-50"
+                    >
                       {i.label}
                     </a>
                   ))}
@@ -377,7 +389,12 @@ function Header() {
               )}
             </div>
 
-            <a href="#pricing" className="hover:text-[#0B3BFF] hover:underline underline-offset-4">Pricing</a>
+            <a
+              href="#pricing"
+              className="hover:text-[#0B3BFF] hover:underline underline-offset-4"
+            >
+              Pricing
+            </a>
 
             <div className="relative">
               <button
@@ -390,7 +407,13 @@ function Header() {
               >
                 Resources
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                  <path d="M6 9l6 6 6-6" stroke="#0f172a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="#0f172a"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
               {res && (
@@ -400,15 +423,37 @@ function Header() {
                   role="menu"
                   className="absolute top-full left-0 mt-2 w-64 rounded-xl border border-slate-200 bg-white shadow-lg p-2 z-40"
                 >
-                  <a href="#resources-blog" className="block px-3 py-2 rounded-lg hover:bg-slate-50">Blog</a>
-                  <a href="#resources-webinars" className="block px-3 py-2 rounded-lg hover:bg-slate-50">Webinars</a>
-                  <a href="#resources-ebooks" className="block px-3 py-2 rounded-lg hover:bg-slate-50">eBooks &amp; Checklists</a>
+                  <a
+                    href="#resources-blog"
+                    className="block px-3 py-2 rounded-lg hover:bg-slate-50"
+                  >
+                    Blog
+                  </a>
+                  <a
+                    href="#resources-webinars"
+                    className="block px-3 py-2 rounded-lg hover:bg-slate-50"
+                  >
+                    Webinars
+                  </a>
+                  <a
+                    href="#resources-ebooks"
+                    className="block px-3 py-2 rounded-lg hover:bg-slate-50"
+                  >
+                    eBooks &amp; Checklists
+                  </a>
                 </div>
               )}
             </div>
 
-            <a href="#login" className="hover:text-[#0B3BFF] hover:underline underline-offset-4">Login</a>
-            <Btn href="#lead" primary>Start free trial</Btn>
+            <a
+              href="#login"
+              className="hover:text-[#0B3BFF] hover:underline underline-offset-4"
+            >
+              Login
+            </a>
+            <Btn href="#lead" primary>
+              Start free trial
+            </Btn>
           </nav>
 
           {/* Hamburger */}
@@ -420,60 +465,119 @@ function Header() {
             onClick={() => setOpen(true)}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M3 6h18M3 12h18M3 18h18" stroke="#0f172a" strokeWidth="2" strokeLinecap="round" />
+              <path
+                d="M3 6h18M3 12h18M3 18h18"
+                stroke="#0f172a"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
             </svg>
           </button>
 
           {/* Mobile drawer + overlay */}
-          <div className={`fixed inset-0 z-50 md:hidden ${open ? '' : 'pointer-events-none'}`}>
-            <div
-              className={`absolute inset-0 transition-opacity ${open ? "bg-black/60 opacity-100" : "opacity-0"}`}
-              onClick={() => setOpen(false)}
-        />
-                    <aside
-              id="mobile-menu"
-              ref={panelRef}
-              role="dialog"
-              aria-modal="true"
-              className={[
-                "absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-white shadow-xl p-6 flex flex-col",
-                "transform transition-transform duration-200",
-                open ? "translate-x-0" : "translate-x-full",
-              ].join(" ")}
+          <div className={`fixed inset-0 z-[100] md:hidden ${open ? "" : "pointer-events-none"}`}>
+  <div
+    className={`absolute inset-0 transition-opacity ${open ? "bg-slate-900/90 opacity-100" : "opacity-0"}`}
+    onClick={() => setOpen(false)}
+  />
+  <aside
+    id="mobile-menu"
+    ref={panelRef}
+    role="dialog"
+    aria-modal="true"
+    className={[
+      "absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-white shadow-xl p-6 flex flex-col",
+      "transform transition-transform duration-200",
+      open ? "translate-x-0" : "translate-x-full",
+    ].join(" ")}
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <img src="/finsensa-logo-mark.svg" alt="Finsensa" className="w-7 h-7 rounded-xl" />
+                  <img
+                    src="/finsensa-logo-mark.svg"
+                    alt="Finsensa"
+                    className="w-7 h-7 rounded-xl"
+                  />
                   <span className="font-semibold">Finsensa</span>
                 </div>
-                <button aria-label="Close menu" className="p-2" onClick={closeMobile}>
+                <button
+                  aria-label="Close menu"
+                  className="p-2"
+                  onClick={closeMobile}
+                >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M6 6l12 12M18 6L6 18" stroke="#0f172a" strokeWidth="2" strokeLinecap="round" />
+                    <path
+                      d="M6 6l12 12M18 6L6 18"
+                      stroke="#0f172a"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
                   </svg>
                 </button>
               </div>
 
               <nav className="mt-6 grid gap-2 text-slate-800">
                 <div>
-                  <div className="px-2 py-2 font-semibold text-slate-600">Product</div>
+                  <div className="px-2 py-2 font-semibold text-slate-600">
+                    Product
+                  </div>
                   {NAV_PRODUCT.map((i) => (
-                    <a key={i.href} href={i.href} onClick={closeMobile} className="block px-4 py-2 rounded-lg hover:bg-slate-50">
+                    <a
+                      key={i.href}
+                      href={i.href}
+                      onClick={closeMobile}
+                      className="block px-4 py-2 rounded-lg hover:bg-slate-50"
+                    >
                       {i.label}
                     </a>
                   ))}
                 </div>
-                <a href="#pricing" onClick={closeMobile} className="px-2 py-2 rounded-lg hover:bg-slate-50">Pricing</a>
+                <a
+                  href="#pricing"
+                  onClick={closeMobile}
+                  className="px-2 py-2 rounded-lg hover:bg-slate-50"
+                >
+                  Pricing
+                </a>
                 <div>
-                  <div className="px-2 py-2 font-semibold text-slate-600">Resources</div>
-                  <a href="#resources-blog" onClick={closeMobile} className="block px-4 py-2 rounded-lg hover:bg-slate-50">Blog</a>
-                  <a href="#resources-webinars" onClick={closeMobile} className="block px-4 py-2 rounded-lg hover:bg-slate-50">Webinars</a>
-                  <a href="#resources-ebooks" onClick={closeMobile} className="block px-4 py-2 rounded-lg hover:bg-slate-50">eBooks &amp; Checklists</a>
+                  <div className="px-2 py-2 font-semibold text-slate-600">
+                    Resources
+                  </div>
+                  <a
+                    href="#resources-blog"
+                    onClick={closeMobile}
+                    className="block px-4 py-2 rounded-lg hover:bg-slate-50"
+                  >
+                    Blog
+                  </a>
+                  <a
+                    href="#resources-webinars"
+                    onClick={closeMobile}
+                    className="block px-4 py-2 rounded-lg hover:bg-slate-50"
+                  >
+                    Webinars
+                  </a>
+                  <a
+                    href="#resources-ebooks"
+                    onClick={closeMobile}
+                    className="block px-4 py-2 rounded-lg hover:bg-slate-50"
+                  >
+                    eBooks &amp; Checklists
+                  </a>
                 </div>
-                <a href="#login" onClick={closeMobile} className="px-2 py-2 rounded-lg hover:bg-slate-50">Login</a>
+                <a
+                  href="#login"
+                  onClick={closeMobile}
+                  className="px-2 py-2 rounded-lg hover:bg-slate-50"
+                >
+                  Login
+                </a>
               </nav>
 
               <div className="mt-auto grid gap-2">
-                <Btn href="#lead" primary onClick={closeMobile}>Start free trial</Btn>
+                <Btn href="#lead" primary onClick={closeMobile}>
+                  Start free trial
+                </Btn>
                 <a
                   href="#demo"
                   onClick={closeMobile}
@@ -1435,13 +1539,31 @@ function IllustrationTrust() {
 
 function IllustrationAlerts() {
   return (
-    <svg viewBox="0 0 600 338" className="w-full h-full" role="img" aria-label="Alerts for low cash, payroll, taxes, late payer">
+    <svg
+      viewBox="0 0 600 338"
+      className="w-full h-full"
+      role="img"
+      aria-label="Alerts for low cash, payroll, taxes, late payer"
+    >
       <rect width="600" height="338" fill="#ffffff" />
-      {[0,1,2,3].map((i) => (
+      {[0, 1, 2, 3].map((i) => (
         <g key={i}>
-          <rect x={24} y={24 + i*74} width={420} height={48} rx={12} fill="#f1f5f9" />
-          <rect x={460} y={24 + i*74} width={116} height={48} rx={12}
-            fill={["#ef4444","#f59e0b","#0ea5e9","#22c55e"][i]} />
+          <rect
+            x={24}
+            y={24 + i * 74}
+            width={420}
+            height={48}
+            rx={12}
+            fill="#f1f5f9"
+          />
+          <rect
+            x={460}
+            y={24 + i * 74}
+            width={116}
+            height={48}
+            rx={12}
+            fill={["#ef4444", "#f59e0b", "#0ea5e9", "#22c55e"][i]}
+          />
         </g>
       ))}
     </svg>
